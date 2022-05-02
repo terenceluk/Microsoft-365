@@ -41,7 +41,7 @@ if ($whatToExport -eq 1){
     Get-CsOnlineUser | Export-Excel -Path $fullPathAndFile -AutoSize -TableName UserConfig
     Write-Host "Exported all user configuration to $($fullPathAndFile)"
 } elseif ($whatToExport -eq 2) {
-    Get-CsOnlineUser | Select-Object AccountEnabled, DisplayName, EnterpriseVoiceEnabled, IsSipEnabled, LineUri, `
+    Get-CsOnlineUser | Select-Object AccountEnabled, DisplayName, UserPrincipalName, EnterpriseVoiceEnabled, IsSipEnabled, LineUri, `
     OnPremEnterpriseVoiceEnabled, OnlineVoiceRoutingPolicy, TenantDialPlan, UsageLocation `
     | Export-Excel -Path $fullPathAndFile -AutoSize -TableName UserConfig
     Write-Host "Exported user Teams Enterprise Voice configuration to $($fullPathAndFile)"
