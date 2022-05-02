@@ -3,6 +3,8 @@
 The purpose of this script is to create an outbound connector for Exchange Online that forces the defined destination domains to require TLS and use a defined smarthost
 This script will import a list of domains from an Excel spreadsheet with a column named domains
 
+Refer to my blog post for more information: http://terenceluk.blogspot.com/2022/02/using-powershell-to-configure-exchange.html
+
 # The following is an example of how to use the New-OutboundConnector Exchange Online cmdlet used to create an Outbound Connector to force TLS and the use of a smart host for the domain
 
 New-OutboundConnector `

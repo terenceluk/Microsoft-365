@@ -3,6 +3,8 @@
 The purpose of this script is to create an inbound connector for Exchange Online that forces the defined incoming domains to require TLS.
 This script will import a list of domains from an Excel spreadsheet with a column named domains
 
+Refer to my blog post for more information: http://terenceluk.blogspot.com/2022/02/using-powershell-to-configure-exchange.html
+
 # The following is an example of how to use the New-InboundConnector Exchange Online cmdlet used to create an Inbound Connector to force incoming domains that belong to Company ABC to require TLS
 
 New-InboundConnector `
