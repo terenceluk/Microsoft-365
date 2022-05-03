@@ -1,7 +1,7 @@
 <# 
 The purpose of this script is to export all users in AAD and their corresponding Microsoft Teams configuration parameters to Excel
 
-Refer to my blog post for more information: 
+Refer to my blog post for more information: http://terenceluk.blogspot.com/2022/05/powershell-script-for-exporting.html
 
 Use: Get-Help Export-Excel for a full rundown on everything Export-Excel can do
 #>

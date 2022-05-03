@@ -1,7 +1,7 @@
 <# 
 The purpose of this script is to import Microsoft Teams Enterprise Voice configuration from Excel
 
-Refer to my blog post for more information: 
+Refer to my blog post for more information: http://terenceluk.blogspot.com/2022/05/powershell-script-for-exporting.html
 
 Use: Get-Help Import-Excel for a full rundown on everything Import-Excel can do
 #>
