@@ -6,11 +6,13 @@ Refer to my blog post for more information:
 Use: Get-Help Export-Excel for a full rundown on everything Export-Excel can do
 #>
 
-# Install Excel Module
-Install-Module -Name ImportExcel
+# Install and Import Teams and Excel Module
+Install-Module -Name ImportExcel -Scope CurrentUser -Repository PSGallery -Force
+Import-Module -Name ImportExcel
+Install-Module -Name MicrosoftTeams
+Import-Module -Name MicrosoftTeams
 
 # Connect to Microsoft Teams
-Import-Module MicrosoftTeams
 Connect-MicrosoftTeams
 
 # Set the path to the Excel file that will store Microsoft Teams User configuration
