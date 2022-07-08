@@ -1,9 +1,11 @@
 <# 
 The purpose of this script is to import Microsoft Teams Enterprise Voice configuration from Excel
-
 Refer to my blog post for more information: http://terenceluk.blogspot.com/2022/05/powershell-script-for-exporting.html
-
 Use: Get-Help Import-Excel for a full rundown on everything Import-Excel can do
+
+--Update July 8, 2022--
+Set-CsUser has not been replaced with Set-CsPhoneNumberAssignment: https://docs.microsoft.com/en-us/powershell/module/teams/set-csphonenumberassignment?view=teams-ps
+
 #>
 
 # Install and Import Teams and Excel Module
@@ -30,40 +32,49 @@ $excelFile = Import-Excel -Path $fullPathAndFile
 foreach ($record in ($excelFile))
 {
     $usernameUPN = $record."UserPrincipalName"
-    $EnterpriseVoiceEnabled = $true
-    $HostedVoiceMail = $true
     $extension = $record."LineURI"
+    # Remove any extensions that have "tel:" because Set-CsPhoneNumberAssignment does not accept it
+    if ($extension -like "tel:*") {
+        $extension = $extension -replace "tel:" -replace ""
+    }
 
+    $phoneNumberType = "DirectRouting"
     $PolicyName = $record."TenantDialPlan"
 
     $OnlineVoiceRoutingPolicy = $record."OnlineVoiceRoutingPolicy"
 
     <# For testing Excel import
     Write-Host "User Principal Name: $($usernameUPN)"
-    Write-Host "Enterprise Voice is enabled: $($EnterpriseVoiceEnabled)"
     Write-Host "Hosted VoiceMail is enabled: $($HostedVoiceMail)"
     Write-Host "Extension is: $($extension)"
     Write-Host "Dial Plan is: $($PolicyName)"
     Write-Host "Routing Policy is: $($OnlineVoiceRoutingPolicy)"
     #>
 
-# Enable user for Enterprise Voice with each row of data in the Excel spreadsheet
-Set-CsUser `
--Identity $usernameUPN `
--EnterpriseVoiceEnabled $true `
--HostedVoiceMail $true `
--LineURI $extension
+    # Test if extension is null and only process if it is NOT null
+    if ($extension) {
+        # Enable user for Enterprise Voice with each row of data in the Excel spreadsheet
+        Set-CsPhoneNumberAssignment `
+        -Identity $usernameUPN `
+        -PhoneNumber $extension `
+        -PhoneNumberType $phoneNumberType
 
-Grant-CsTenantDialPlan `
--PolicyName $PolicyName `
--Identity $usernameUPN
+        Grant-CsTenantDialPlan `
+        -PolicyName $PolicyName `
+        -Identity $usernameUPN
 
-Grant-CsTenantDialPlan `
--PolicyName $PolicyName `
--Identity $usernameUPN
+        Grant-CsTenantDialPlan `
+        -PolicyName $PolicyName `
+        -Identity $usernameUPN
 
-Grant-CsOnlineVoiceRoutingPolicy `
--Identity $usernameUPN `
--PolicyName $OnlineVoiceRoutingPolicy
+        Grant-CsOnlineVoiceRoutingPolicy `
+        -Identity $usernameUPN `
+        -PolicyName $OnlineVoiceRoutingPolicy
+    } else {
+        # Do nothing and skip
+    }   
 }
-# Get-CsOnlineUser -Identity $usernameUPN | FL *uri,ent*,hosted*,onlinevoicerout*,tenantdial*  <-- Use this to check configuration settings for individual users
+# Get-CsOnlineUser -Identity $usernameUPN | FL *uri*,*voice*,*dial*,onlinevoicerout*,tenantdial*  <-- Use this to check configuration settings for individual users
+
+# Check who is assigned an extension
+# Get-CsOnlineUser | Where-Object LineUri -Like "*342*" | FL DisplayName,userPrincipalName,*uri,ent*,hosted*,onlinevoicerout*,tenantdial*
