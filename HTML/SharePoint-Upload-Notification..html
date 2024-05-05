@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<style>
+	.notification-table-header {
+		width: auto;
+		border-top: none;
+		background: #a84d96;
+		font-size: 11.0pt;
+		color: white;
+		font-weight: bold;
+		margin-left: 10px;
+		text-align: left;
+		border: none;
+		border-bottom: solid white 1.5pt;
+	}
+
+	.notification-table-text {
+		margin-left: 5px;
+		width: 70%;
+		text-align: left;
+		border: none;
+		border-bottom: solid white 1.5pt;
+		background: #F2F2F2;
+		font-size: 12.0pt;
+		height: 20.05pt;
+	}
+
+	.notification-card-footer span {
+		font-size: 12.0pt;
+		color: #7F7F7F;
+	}
+
+	.notification-card-footer p {
+		vertical-align: baseline;
+	}
+
+	.notification-body {
+		margin: 0 auto;
+		text-align: center;
+		width: 650px;
+		border: 1px black;
+		border-collapse: collapse;
+		background-color: #eed8eb;
+	}
+</style>
+
+<body style="background-color: #dfdfdf;">
+	<table style="width:100%;">
+		<tr>
+			<td style="padding:0;">
+				<div align="center">
+					<table class="notification-body">
+						<tr style="border: 1px grey; border-top:none;">
+							<td>
+								<p style='font-size:5.0pt;'>
+									<span>&nbsp;</span>
+								</p>
+								<table style='width:590px;margin:0 auto;border-collapse:collapse;'>
+									<tr style='height:20.05pt'>
+										<td colspan="2" class="notification-table-header"
+											style='width:100%; height:20.05pt'>
+											<p style='text-align:center; font-size:18.0pt;'><b>New SharePoint File Uploaded</b></p>
+										</td>
+									</tr>
+									<tr class="notification-card-footer">
+										<td colspan="2">
+											</br></br>
+											<p style='text-align:left;'>File Details: </p>
+										</td>
+									</tr>
+									<tr>
+										<td class="notification-table-header">
+											<span>&nbsp; File Name:</span>
+										</td>
+										<td class="notification-table-text">@{variables('Filename')}</td>
+									</tr>
+                                    <tr>
+										<td class="notification-table-header">
+											<span>&nbsp; File Folder:</span>
+										</td>
+										<td class="notification-table-text">@{variables('Folder Path')}</td>
+									</tr>
+                                    <tr>
+										<td class="notification-table-header">
+											<span>&nbsp; Date and Time:</span>
+										</td>
+										<td class="notification-table-text">@{formatDateTime(utcNow(), 'yyyy-MM-ddTHH:mm:ss')}</td>
+									</tr>
+<tr class="notification-card-footer">
+										<td colspan="2">
+											<p style='text-indent:36.0pt;'>
+												<span style='font-size:0.0pt;'>&nbsp;</span>
+											</p>
+											<p style='text-align:center;'>
+												<b>
+													<span style='font-size:16.0pt;'>Administrator</span>
+												</b>
+											</p>
+											<p style='text-align:center;'>
+												<span>Contact support if there are any issues: 
+													<a href="mailto:itsupport@contoso.com"
+														target="_blank">
+														<span style='font-size:12.0pt;color:blue;'>itsupport@contoso.com</span>
+													</a>
+												</span>
+												<br/>&nbsp;
+											</p>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
