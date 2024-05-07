@@ -81,10 +81,14 @@
 										<td class="notification-table-text">@{variables('Folder Path')}</td>
 									</tr>
                                     <tr>
-										<td class="notification-table-header">
-											<span>&nbsp; Date and Time:</span>
+																					<span>&nbsp; Date:</span>
 										</td>
-										<td class="notification-table-text">@{formatDateTime(utcNow(), 'yyyy-MM-ddTHH:mm:ss')}</td>
+										<td class="notification-table-text">@{convertTimeZone(utcNow(), 'UTC', 'Eastern Standard Time', 'MMMM dd, yyyy')}</td>
+									</tr>
+<td class="notification-table-header">
+											<span>&nbsp; Time:</span>
+										</td>
+										<td class="notification-table-text">@{convertTimeZone(utcNow(), 'UTC', 'Eastern Standard Time','hh:mm:ss tt')}</td>
 									</tr>
 <tr class="notification-card-footer">
 										<td colspan="2">
