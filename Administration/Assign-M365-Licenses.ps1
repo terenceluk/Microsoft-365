@@ -70,7 +70,7 @@ Use the following to retrieve all the users who have a Microsoft 365 E5 license 
 
 #>
 
-# Get users who have current assign Copilot for Microsoft 365
+# Get users who have a valid Microsoft 365 E5 and assign them Copilot for Microsoft 365
 [array]$userList = Get-MgUser -Filter "assignedLicenses/any(x:x/skuId eq cd2925a3-5076-4233-8931-638a8c94f773)" -All # Get all users who have current E5
 ForEach ($user in $userList) {
        Set-MgUserLicense -UserId $user.UserPrincipalName -Addlicenses @{SkuId = '639dec6b-bb19-468b-871c-c5c441c4b0cb' } -RemoveLicenses @() # Add Copilot for Microsoft 365
